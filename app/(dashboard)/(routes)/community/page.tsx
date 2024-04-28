@@ -11,7 +11,7 @@ const getImages = async () => {
 const Community = async () => {
   const images = await getImages();
   return (
-    <div>
+    <div className="max-w-6xl">
       <ImageList images={images} />
     </div>
   );

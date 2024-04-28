@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { default as NextImage } from "next/image";
 import { Image } from "@prisma/client";
 import ImageCard from "./image-card";
 
@@ -9,9 +8,9 @@ interface Props {
 }
 const ImageList = ({ images }: Props) => {
   return (
-    <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-2">
+    <div className="columns-2 gap-5 sm:columns-2 sm:gap-8 md:columns-3 lg:columns-4 [&>img:not(:first-child)]:mt-8">
       {images.map((image) => {
-        return <ImageCard image={image} />;
+        return <ImageCard key={image.id} image={image} />;
       })}
     </div>
   );
