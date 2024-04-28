@@ -55,19 +55,21 @@ export async function POST(req: Request) {
 
   switch (eventType) {
     case 'user.created':
+      console.log(eventType)  
       await prisma.userLimit.create({
         data : {
             userId : id!,
         }
       })
-    case 'user.deleted':       
-        await prisma.userLimit.delete({
+      return new Response('', { status: 201 })
+    case 'user.deleted': 
+      console.log(eventType)  
+      await prisma.userLimit.delete({
           where : {
             userId : id!
           }
-        })  
-    
-
+      })  
+      return new Response('', { status: 200 })
   }
 
   return new Response('', { status: 200 })
