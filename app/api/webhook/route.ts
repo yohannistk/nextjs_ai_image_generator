@@ -4,6 +4,8 @@ import { headers } from 'next/headers'
 import { WebhookEvent } from '@clerk/nextjs/server'
 import prisma from '@/lib/db'
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(req: Request) {
 
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
