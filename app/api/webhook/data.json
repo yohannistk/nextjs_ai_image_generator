@@ -1,0 +1,57 @@
+{
+  "data": {
+    "backup_code_enabled": false,
+    "banned": false,
+    "create_organization_enabled": true,
+    "created_at": 1714316378487,
+    "delete_self_enabled": true,
+    "email_addresses": [
+      {
+        "created_at": 1714316378495,
+        "email_address": "johngod2116@gmail.com",
+        "id": "idn_2fjZJs6ePaVMPzcOCpxMubvmNkx",
+        "linked_to": [],
+        "object": "email_address",
+        "reserved": false,
+        "updated_at": 1714316378495,
+        "verification": {
+          "attempts": null,
+          "expire_at": null,
+          "status": "verified",
+          "strategy": "admin"
+        }
+      }
+    ],
+    "external_accounts": [],
+    "external_id": null,
+    "first_name": null,
+    "has_image": false,
+    "id": "user_2fjZJuZMhJz3oj7mcWpGgHnpV3B",
+    "image_url": "https://img.clerk.com/eyJ0eXBlIjoiZGVmYXVsdCIsImlpZCI6Imluc18yZmR2SVk4dVI0YXlvVmFXem03Uklkb0ZRdFUiLCJyaWQiOiJ1c2VyXzJmalpKdVpNaEp6M29qN21jV3BHZ0hucFYzQiJ9",
+    "last_active_at": null,
+    "last_name": null,
+    "last_sign_in_at": null,
+    "locked": false,
+    "lockout_expires_in_seconds": null,
+    "object": "user",
+    "passkeys": [],
+    "password_enabled": true,
+    "phone_numbers": [],
+    "primary_email_address_id": "idn_2fjZJs6ePaVMPzcOCpxMubvmNkx",
+    "primary_phone_number_id": null,
+    "primary_web3_wallet_id": null,
+    "private_metadata": {},
+    "profile_image_url": "https://www.gravatar.com/avatar?d=mp",
+    "public_metadata": {},
+    "saml_accounts": [],
+    "totp_enabled": false,
+    "two_factor_enabled": false,
+    "unsafe_metadata": {},
+    "updated_at": 1714316378502,
+    "username": null,
+    "verification_attempts_remaining": 100,
+    "web3_wallets": []
+  },
+  "object": "event",
+  "type": "user.created"
+}

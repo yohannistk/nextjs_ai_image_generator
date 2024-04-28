@@ -2,6 +2,7 @@
 import { Webhook } from 'svix'
 import { headers } from 'next/headers'
 import { WebhookEvent } from '@clerk/nextjs/server'
+import prisma from '@/lib/db'
 
 export async function POST(req: Request) {
 
@@ -52,8 +53,23 @@ export async function POST(req: Request) {
   const { id } = evt.data;
   const eventType = evt.type;
 
-  console.log(`Webhook with and ID of ${id} and type of ${eventType}`)
-  console.log('Webhook body:', body)
+  switch (eventType) {
+    case 'user.created':
+      await prisma.userLimit.create({
+        data : {
+            userId : id!,
+        }
+      })
+    case 'user.deleted':       
+        await prisma.userLimit.delete({
+          where : {
+            userId : id!
+          }
+        })  
+    
+
+  }
 
   return new Response('', { status: 200 })
 }
+

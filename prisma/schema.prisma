@@ -17,3 +17,12 @@ model Image {
   imageUrl  String
   userId    String
 }
+model UserLimit {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  limit    Int    @default(5)
+  userId   String @unique
+}
+
+
