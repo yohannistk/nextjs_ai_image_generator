@@ -36,7 +36,17 @@ export async function POST(request: Request) {
             return new Response("", { status: 200 });
           }
         }
+      } else {
+        return Response.json(
+          { message: "Something went wrong" },
+          { status: 400 }
+        );
       }
+    } else {
+      return Response.json(
+        { message: "Something went wrong" },
+        { status: 400 }
+      );
     }
   } catch (e) {
     return Response.json({ message: "Something went wrong" }, { status: 500 });
