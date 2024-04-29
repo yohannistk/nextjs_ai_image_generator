@@ -12,9 +12,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const ProModal = () => {
   const { isOpen, setOpen } = useProModal();
@@ -23,9 +23,10 @@ const ProModal = () => {
     try {
       setLoading(true);
       const res = await axios.get("/api/payment");
-      console.log(res.data);
+      const paymentUrl = res.data["paymentUrl"];
+      window.location.assign(paymentUrl);
     } catch (e) {
-      console.log(e);
+      toast.error("Something went wrong");
     } finally {
       setLoading(false);
     }
@@ -41,7 +42,7 @@ const ProModal = () => {
         <DialogHeader>
           <DialogTitle>Buy More Credits</DialogTitle>
           <DialogDescription className="mt-16">
-            Looks like you've reached your image generation limit! To continue
+            Looks like you have reached your image generation limit! To continue
             creating stunning images, consider purchasing more credits. Happy
             creating!
           </DialogDescription>
