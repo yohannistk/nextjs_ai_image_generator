@@ -24,6 +24,7 @@ model UserLimit {
   generationLimit    Int    @default(5)
   userUsage Int    @default(5)
   userId   String @unique
+  email String @unique
 }
 
 
