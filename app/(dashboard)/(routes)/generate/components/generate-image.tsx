@@ -8,7 +8,11 @@ import toast from "react-hot-toast";
 import axios, { AxiosError } from "axios";
 import { Image } from "@prisma/client";
 import { default as NextImage } from "next/image";
+import { useRouter } from "next/navigation";
+import { useProModal } from "@/hooks/use-pro-modal";
 const GenerateImage = () => {
+  const router = useRouter();
+  const { setOpen } = useProModal();
   const promptRef = useRef<HTMLInputElement>(null);
   const [image, setImage] = useState<Image | null>(null);
   const [loading, setLoading] = useState(false);
@@ -31,12 +35,16 @@ const GenerateImage = () => {
       setImage(res.data.image);
     } catch (e) {
       if (e instanceof AxiosError) {
-        toast.error(e.response?.data.message);
-        console.log(e.response?.status);
-        console.log(e.response?.data);
+        if (e.response?.status == 403) {
+          // toast.error(e.response?.data.message);
+          setOpen(true);
+        } else {
+          toast.error("Something went wroung");
+        }
       }
     } finally {
       setLoading(false);
+      router.refresh();
     }
   };
   return (

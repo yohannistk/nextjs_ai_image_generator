@@ -5,6 +5,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { PropsWithChildren } from "react";
 import { Metadata } from "next";
 import toast, { Toaster } from "react-hot-toast";
+import ProModalProvider from "@/providers/pro-modal-provider";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
             fontSans.variable
           )}
         >
+          <ProModalProvider />
           <Toaster />
           {children}
         </body>

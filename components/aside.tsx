@@ -16,7 +16,14 @@ import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
 import { sideBarData } from "@/data";
 import { cn } from "@/lib/utils";
-const Aside = () => {
+import { UserLimit } from "@prisma/client";
+import { Badge } from "./ui/badge";
+import { Progress } from "./ui/progress";
+
+interface Props {
+  userLimit: UserLimit;
+}
+const Aside = ({ userLimit }: Props) => {
   const pathname = usePathname();
   return (
     <aside className="hidden border-r fixed w-64 top-0 bottom-0 bg-muted/40 md:block">
@@ -53,6 +60,15 @@ const Aside = () => {
               );
             })}
           </nav>
+        </div>
+        <div className="p-5 text-center space-y-2">
+          <Badge>
+            {userLimit.userUsage} / {userLimit.generationLimit}
+          </Badge>
+          <Progress
+            className="h-4"
+            value={(userLimit.userUsage / userLimit.generationLimit) * 100}
+          />
         </div>
       </div>
     </aside>

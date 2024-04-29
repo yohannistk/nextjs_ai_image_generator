@@ -21,7 +21,8 @@ model UserLimit {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  limit    Int    @default(5)
+  generationLimit    Int    @default(5)
+  userUsage Int    @default(5)
   userId   String @unique
 }
 

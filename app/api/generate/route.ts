@@ -1,42 +1,60 @@
+import Replicate from 'replicate';
 import prisma from "@/lib/db";
-import { currentUser, getAuth } from "@clerk/nextjs/server";
-import { NextResponse } from "next/server";
+import { currentUser } from "@clerk/nextjs/server";
+import { revalidatePath } from 'next/cache';
 
 interface RequestBody {
   prompt: string;
 }
 
-const getRandomNumber = () => {
-  return Math.floor(Math.random() * 4 + 1);
-};
+const replicate = new Replicate();
 
 export async function POST(request: Request) {
   const { prompt }: RequestBody = await request.json();
   const user = await currentUser();
-
   if (!user?.id) {
     return Response.json({ message: "Unauthorized" }, { status: 401 });
   }
-
-  const imageNames = [
-    "_7e73972e-6889-49da-8707-3abb8b2e3246",
-    "_7eb345c5-f712-48f5-b187-0ba9d2fc7f0d",
-    "_792e7545-ddc8-43e5-98a1-c97dda9128d0",
-    "_8928137a-ec75-4e62-b770-e41ae06882e8",
-    "_30254745-4d3a-4a8c-a1ff-9b5aa214f3e8",
-  ];
   if (!prompt) {
     return Response.json({ message: "Prompt is missing" }, { status: 400 });
   }
-  const imageUrl = `http://localhost:3000/images/${
-    imageNames[getRandomNumber()]
-  }.jpg`;
-  const image = await prisma.image.create({
-    data: {
-      imageUrl,
-      prompt,
-      userId: user.id,
-    },
-  });
-  return Response.json({ image }, { status: 200 });
+
+  try {
+    const userLimit = await prisma.userLimit.findUnique({
+      where : {userId : user?.id}
+    })
+  
+    if (userLimit!.userUsage <= 0) {
+      return Response.json({ message : "Looks like you've reached your image generation limit!" }, { status: 403 });
+    }
+  
+    await prisma.userLimit.update({
+      where: { id: userLimit?.id },
+      data: { userUsage: { decrement: 1 } }
+    })
+    const input = {
+        width: 768,
+        height: 768,
+        prompt : "An astronaut riding a rainbow unicorn, cinematic, dramatic",
+        refine: "expert_ensemble_refiner",
+        apply_watermark: false,
+        num_inference_steps: 25
+    };
+  
+    // const output = await replicate.run("stability-ai/sdxl:39ed52f2a78e934b3ba6e2a89f5b1c712de7dfea535525255b1aa35c5565e08b", { input }) as string[];
+  
+      const image = await prisma.image.create({
+        data: {
+          imageUrl : "https://replicate.delivery/pbxt/jrBharImwEYKHdzJV3MvA3qTroZ6nXpC8k1TRiZSA8YVfnXJA/out-0.png" ,
+          prompt,
+          userId: user.id,
+        },
+      }); 
+      revalidatePath('/', "layout")
+      return Response.json({ image }, { status: 200 });
+  }
+  catch(e) {
+    return Response.json({ message : "Something went wroung" }, { status: 500 });
+
+  }
 }
