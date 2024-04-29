@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 
 import { UserButton } from "@clerk/nextjs";
-import { sideBarData } from "@/data";
+import { sideBarData } from "@/constants";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import { UserLimit } from "@prisma/client";

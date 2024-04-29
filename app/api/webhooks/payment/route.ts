@@ -1,12 +1,12 @@
+import { MAXIMUM_GENERATION_LIMIT } from "@/constants";
 import prisma from "@/lib/db";
 import axios from "axios";
 import crypto from "crypto";
 
 export async function POST(request: Request) {
+  console.log("REQUEST CAME");
   try {
     const body = await request.json();
-    console.log(body);
-
     const hash = crypto
       .createHmac("sha256", process.env.CHAPA_WEBHOOK_SECRET!)
       .update(JSON.stringify(body))
@@ -31,22 +31,23 @@ export async function POST(request: Request) {
         if (response.status == 200) {
           // if successful find the order
           if (response.data["status"] == "success") {
-            let tx_ref = response.data["data"]["tx_ref"];
-            console.log(tx_ref);
-            console.log(body);
+            // let tx_ref = response.data["data"]["tx_ref"];
+            // console.log(tx_ref);
+            let email = response.data["data"]["email"];
+            await prisma.userLimit.update({
+              where: { email },
+              data: { userUsage: MAXIMUM_GENERATION_LIMIT },
+            });
             return new Response("", { status: 200 });
           }
         }
       } else {
-        console.log("HERE");
-
         return Response.json(
           { message: "Something went wrong" },
           { status: 400 }
         );
       }
     } else {
-      console.log("HERE", request.headers.get("x-chapa-signature"));
       return Response.json(
         { message: "Something went wrong" },
         { status: 400 }

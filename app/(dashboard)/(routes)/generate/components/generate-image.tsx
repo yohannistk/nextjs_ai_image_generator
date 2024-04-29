@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Pencil, SlidersHorizontal } from "lucide-react";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import axios, { AxiosError } from "axios";
 import { Image } from "@prisma/client";
@@ -16,6 +16,9 @@ const GenerateImage = () => {
   const promptRef = useRef<HTMLInputElement>(null);
   const [image, setImage] = useState<Image | null>(null);
   const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    router.refresh();
+  }, []);
   const handleGenerateImage = async (
     event: React.FormEvent<HTMLFormElement>
   ) => {

@@ -14,7 +14,7 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
-import { sideBarData } from "@/data";
+import { sideBarData } from "@/constants";
 import { cn } from "@/lib/utils";
 import { UserLimit } from "@prisma/client";
 import { Badge } from "./ui/badge";

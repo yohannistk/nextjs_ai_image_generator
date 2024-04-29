@@ -1,6 +1,8 @@
 import { Library, Pencil, Users } from "lucide-react";
 import { SideBarData } from "./types";
 
+export const MAXIMUM_GENERATION_LIMIT = 5;
+
 export const sideBarData: SideBarData[] = [
   {
     label: "Generate",
