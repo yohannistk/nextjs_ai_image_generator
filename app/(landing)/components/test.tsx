@@ -4,7 +4,7 @@ import { Database } from "@/lib/database.types";
 import { Button } from "@/components/ui/button";
 import { serverFunction } from "@/actions";
 import { useFormStatus } from "react-dom";
-import { createClient } from "@/utils/supabase/client";
+import { createClient } from "@supabase/supabase-js";
 
 // Add clerk to Window to avoid type errors
 declare global {
@@ -50,15 +50,15 @@ const UserTest = () => {
   const { pending } = useFormStatus();
   console.log("pending", pending);
 
-  const supabse = createClient();
+  //   const supabse = createClient();
 
   useEffect(() => {
     (async () => {
-      await supabse.auth.signInWithPassword({
-        email: "john@gmail.com",
-        password: "john@gmail.com",
-      });
-      console.log(await supabse.from("UserLimit").select("*"));
+      //   await supabse.auth.signInWithPassword({
+      //     email: "john@gmail.com",
+      //     password: "john@gmail.com",
+      //   });
+      //   console.log(await supabse.from("UserLimit").select("*"));
     })();
   }, []);
   return (
