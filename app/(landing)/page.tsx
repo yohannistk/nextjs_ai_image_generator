@@ -1,19 +1,18 @@
-import { Button, buttonVariants } from "@/components/ui/button";
-import UserExample from "@/components/user";
-import { UserProfile } from "@clerk/clerk-react";
-import { SignInButton, SignOutButton } from "@clerk/nextjs";
-import Link from "next/link";
+import { auth } from "@clerk/nextjs/server";
+import Header from "./components/header";
+import Hero from "./components/hero";
+import { redirect } from "next/navigation";
+
 export default function Home() {
+  const { userId } = auth();
+  if (userId) {
+    redirect("/generate");
+  }
   return (
     <main className="">
-      <Button>Click me</Button>
-      <Link href={"/sign-in"} className={buttonVariants({})}>
-        Sign in
-      </Link>
-      <Link href={"/sign-up"} className={buttonVariants({})}>
-        Sign Up
-      </Link>
-      <UserExample />
+      {/* <UserTest /> */}
+      <Header />
+      <Hero />
     </main>
   );
 }

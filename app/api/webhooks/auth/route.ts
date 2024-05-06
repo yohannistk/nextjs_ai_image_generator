@@ -58,7 +58,7 @@ export async function POST(req: Request) {
       console.log(eventType);
       await prisma.userLimit.create({
         data: {
-          userId: id!,
+          user_id: id!,
           email: evt.data.email_addresses[0].email_address,
         },
       });
@@ -67,7 +67,7 @@ export async function POST(req: Request) {
       console.log(eventType);
       await prisma.userLimit.delete({
         where: {
-          userId: id!,
+          user_id: id!,
         },
       });
       return new Response("", { status: 200 });

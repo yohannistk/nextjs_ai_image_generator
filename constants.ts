@@ -1,5 +1,5 @@
 import { Library, Pencil, Users } from "lucide-react";
-import { SideBarData } from "./types";
+import { SideBarData } from "./lib/database.types";
 
 export const MAXIMUM_GENERATION_LIMIT = 5;
 

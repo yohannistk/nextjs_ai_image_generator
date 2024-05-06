@@ -15,7 +15,7 @@ model Image {
   prompt    String   @db.VarChar(255)
   public    Boolean  @default(true)
   imageUrl  String
-  userId    String
+  user_id    String
 }
 model UserLimit {
   id        String   @id @default(cuid())
@@ -23,7 +23,7 @@ model UserLimit {
   updatedAt DateTime @updatedAt
   generationLimit    Int    @default(5)
   userUsage Int    @default(5)
-  userId   String @unique
+  user_id   String @unique
   email String @unique
 }
 
