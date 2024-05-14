@@ -4,7 +4,7 @@ import { Database } from "@/lib/database.types";
 
 // Define a function to create a Supabase client for server-side operations
 // The function takes a cookie store created with next/headers cookies as an argument
-export const createClient = (supabaseAccessToken: string) => {
+export const createClient = (supabaseAccessToken?: string) => {
   const cookieStore = cookies();
 
   return createServerClient<Database>(

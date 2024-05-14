@@ -12,9 +12,9 @@ model Image {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  prompt    String   @db.VarChar(255)
+  prompt    String   @db.Text
   public    Boolean  @default(true)
-  imageUrl  String
+  imageUrl  String  @db.Text
   user_id    String
 }
 model UserLimit {

@@ -1,14 +1,13 @@
 "use client";
-
-import { ArrowBigRight, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import React from "react";
-import { HeroCarousel } from "./hero-carousel";
+import Link from "next/link";
 
 const Hero = () => {
   return (
-    <section className="bg-white dark:bg-gray-900">
-      <div className="grid max-w-6xl mx-auto px-4 py-8 lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
-        <div className="mr-auto place-self-center lg:col-span-7">
+    <section className="my-8">
+      <div className="mx-auto px-4 py-8 lg:py-16">
+        <div className="mx-auto flex flex-col mb-10 items-center text-center">
           <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
             Create Stunning Visuals with AI Power
           </h1>
@@ -16,20 +15,22 @@ const Hero = () => {
             Turn your ideas into stunning visuals with our powerful AI tool. No
             artistic skills required.
           </p>
-          <a
-            href="#"
+          <Link
+            href="/sign-in"
             className="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-primary hover:bg-primary/35 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900"
           >
             Get started
             <ArrowRight className="ml-3" />
-          </a>
+          </Link>
         </div>
-        <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
-          {/* <img
-            src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/phone-mockup.png"
-            alt="mockup"
-          /> */}
-          <HeroCarousel />
+        <div className="mx-auto max-w-5xl rounded-2xl overflow-hidden">
+          <video
+            autoPlay
+            loop
+            src={
+              "https://cdn2.imagine.art/imagine-frontend/assets/video/ImagineWeb_New.mp4"
+            }
+          />
         </div>
       </div>
     </section>

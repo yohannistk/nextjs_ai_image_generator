@@ -11,8 +11,8 @@ import {
 
 export default function Header() {
   return (
-    <header className="h-20 py-3 w-full">
-      <div className="max-w-6xl mx-auto bg-gray-900 rounded-full h-full flex shrink-0 items-center px-4 md:px-6">
+    <header className="h-20 py-2 w-full border-b">
+      <div className="max-w-6xl mx-auto rounded-full h-full flex shrink-0 items-center px-4 md:px-6">
         <Sheet>
           <SheetTrigger asChild>
             <Button className="lg:hidden" size="icon" variant="outline">
@@ -60,7 +60,7 @@ export default function Header() {
           </SheetContent>
         </Sheet>
         <Link
-          className="mr-6 font-bold text-white text-xl hidden lg:flex"
+          className="mr-6 font-bold text-gray-600 text-xl hidden lg:flex"
           href="#"
         >
           Pixel<span className="text-primary">Pulse</span>
@@ -71,7 +71,7 @@ export default function Header() {
               return (
                 <NavigationMenuLink asChild key={index}>
                   <Link
-                    className="group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 font-medium  transition-colors hover:bg-gray-700 text-white"
+                    className="group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 font-medium  transition-colors hover:bg-gray-100  text-muted-foreground"
                     href="#"
                   >
                     {link}

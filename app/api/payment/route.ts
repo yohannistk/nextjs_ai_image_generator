@@ -3,6 +3,7 @@ import { InitializeOptions } from "@/types";
 import { currentUser } from "@clerk/nextjs/server";
 import axios from "axios";
 import { nanoid } from "nanoid";
+import { env } from "@/lib/env";
 
 export async function GET(request: Request) {
   const user = await currentUser();
@@ -32,7 +33,7 @@ export async function GET(request: Request) {
       chapaRequestData,
       {
         headers: {
-          Authorization: "Bearer " + process.env.CHAPA_KEY,
+          Authorization: "Bearer " + env.CHAPA_KEY,
           "Content-Type": "application/json",
         },
       }

@@ -10,6 +10,9 @@ const config = {
   ],
   prefix: "",
   theme: {
+    gridTemplateColumns: {
+      gallery: "repeat(auto-fit, minmax(200px, 1fr))",
+    },
     container: {
       center: true,
       padding: "2rem",

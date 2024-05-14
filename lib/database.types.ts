@@ -11,7 +11,7 @@ export type Database = {
     Tables: {
       Image: {
         Row: {
-          createdAt: Date;
+          createdAt: string;
           id: string;
           imageUrl: string;
           prompt: string;
@@ -74,6 +74,12 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
+      decrement: {
+        Args: {
+          row_id: string;
+        };
+        Returns: undefined;
+      };
       requesting_user_id: {
         Args: Record<PropertyKey, never>;
         Returns: string;

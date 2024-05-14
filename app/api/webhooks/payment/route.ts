@@ -1,5 +1,6 @@
 import { MAXIMUM_GENERATION_LIMIT } from "@/constants";
 import prisma from "@/lib/db";
+import { env } from "@/lib/env";
 import axios from "axios";
 import crypto from "crypto";
 
@@ -8,7 +9,7 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     const hash = crypto
-      .createHmac("sha256", process.env.CHAPA_WEBHOOK_SECRET!)
+      .createHmac("sha256", env.CHAPA_WEBHOOK_SECRET!)
       .update(JSON.stringify(body))
       .digest("hex");
 
@@ -24,7 +25,7 @@ export async function POST(request: Request) {
 
           {
             headers: {
-              Authorization: "Bearer " + process.env.CHAPA_KEY,
+              Authorization: "Bearer " + env.CHAPA_KEY,
             },
           }
         );

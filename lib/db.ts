@@ -1,7 +1,11 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client/edge";
+import { withAccelerate } from "@prisma/extension-accelerate";
 
+if (!process.env.DATABASE_URL) {
+  throw new Error("Database url is missing");
+}
 const prismaClientSingleton = () => {
-  return new PrismaClient();
+  return new PrismaClient({}).$extends(withAccelerate());
 };
 
 declare global {
