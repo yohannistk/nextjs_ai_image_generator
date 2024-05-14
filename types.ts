@@ -1,12 +1,23 @@
+import { z } from "zod";
+import { inputSchema } from "./zod-schemas";
+
 enum SplitType {
   PERCENTAGE = "percentage",
   FLAT = "flat",
 }
 
+export type InputType = z.infer<typeof inputSchema>;
+
 interface Subaccount {
   id: string;
   split_type?: SplitType;
   transaction_charge?: number;
+}
+export interface TPromptSettings {
+  num_inference_steps: number;
+  width: number;
+  height: number;
+  negative_prompt: string;
 }
 
 export interface InitializeResponse {

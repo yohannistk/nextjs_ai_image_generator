@@ -9,7 +9,7 @@ const getImages = async () => {
 const Community = async () => {
   const images = await getImages();
   return (
-    <div className="max-w-6xl w-full mx-auto">
+    <div className="max-w-6xl w-full mx-auto p-4">
       <ImageList images={images} />
     </div>
   );

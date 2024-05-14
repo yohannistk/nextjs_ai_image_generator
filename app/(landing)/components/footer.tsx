@@ -6,11 +6,8 @@ const Fotter = () => {
     <div className="border-t bg-gray-50">
       <div className="max-w-2xl mx-auto text-gray-900 py-10">
         <div className="text-center">
-          <h3 className="text-3xl mb-3 font-semibold">
-            {" "}
-            Download our fitness app{" "}
-          </h3>
-          <p> Stay fit. All day, every day. </p>
+          <h3 className="text-3xl mb-3 font-semibold"> Download Our App </h3>
+          <p>Unleashing Creativity: AI-Powered Image Generator Platform</p>
           <div className="flex flex-col gap-2 items-center md:flex-row justify-center  my-10">
             <Link
               href={""}

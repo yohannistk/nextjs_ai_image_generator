@@ -22,12 +22,7 @@ const ImageCard = ({ image }: Props) => {
           backgroundPosition: "center", // cover, contain, none
         }}
       />
-      <div className="absolute invisible group-hover:visible  inset-0 bg-gray-950/40"></div>
-      <div className="absolute invisible group-hover:visible top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-        <span className="text-sm text-white p-5 text-center overflow-hidden text-ellipsis max-w-[calc(100% - 20px)]">
-          {image.prompt}
-        </span>
-      </div>
+      <div className="absolute invisible group-hover:visible transition-colors inset-0 bg-gray-950/40"></div>
     </div>
   );
 };

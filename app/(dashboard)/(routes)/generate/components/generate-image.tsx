@@ -10,12 +10,20 @@ import { Image } from "@prisma/client";
 import { default as NextImage } from "next/image";
 import { useRouter } from "next/navigation";
 import { useProModal } from "@/hooks/use-pro-modal";
+import PromptSettings from "./prompt-settings";
+import { InputType, TPromptSettings } from "@/types";
 const GenerateImage = () => {
   const router = useRouter();
   const { setOpen } = useProModal();
   const promptRef = useRef<HTMLInputElement>(null);
   const [image, setImage] = useState<Image | null>(null);
   const [loading, setLoading] = useState(false);
+  const [promptSettings, setPromptSettings] = useState<TPromptSettings>({
+    height: 760,
+    width: 760,
+    negative_prompt: "negative_prompt",
+    num_inference_steps: 50,
+  });
   useEffect(() => {
     router.refresh();
   }, []);
@@ -23,6 +31,7 @@ const GenerateImage = () => {
     event: React.FormEvent<HTMLFormElement>
   ) => {
     event.preventDefault();
+
     const prompt = promptRef.current?.value;
     if (!prompt) {
       toast.error("Promot is missing");
@@ -30,11 +39,11 @@ const GenerateImage = () => {
     }
     setImage(null);
     setLoading(true);
+    const input: InputType = { prompt, ...promptSettings };
     try {
       const res = await axios.post("/api/generate", {
-        prompt,
+        input,
       });
-      console.log(res.data.image);
       setImage(res.data.image);
     } catch (e) {
       if (e instanceof AxiosError) {
@@ -42,7 +51,7 @@ const GenerateImage = () => {
           // toast.error(e.response?.data.message);
           setOpen(true);
         } else {
-          toast.error("Something went wroung");
+          toast.error("Something went wrong");
         }
       }
     } finally {
@@ -51,7 +60,7 @@ const GenerateImage = () => {
     }
   };
   return (
-    <>
+    <div className="p-4">
       <div className="flex gap-4">
         <form className="flex gap-3 flex-1" onSubmit={handleGenerateImage}>
           <Input
@@ -65,9 +74,10 @@ const GenerateImage = () => {
           </Button>
         </form>
         <div>
-          <Button size={"icon"} variant={"outline"}>
-            <SlidersHorizontal />
-          </Button>
+          <PromptSettings
+            setPromptSettings={setPromptSettings}
+            promptSettings={promptSettings}
+          />
         </div>
       </div>
       <div>
@@ -83,7 +93,7 @@ const GenerateImage = () => {
           </div>
         ) : null}
       </div>
-    </>
+    </div>
   );
 };
 

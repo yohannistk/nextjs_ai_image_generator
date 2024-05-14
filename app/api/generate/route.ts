@@ -4,23 +4,16 @@ import { createClient } from "@/utils/supabase/server";
 import { NextApiRequest } from "next";
 import { auth } from "@clerk/nextjs/server";
 import { env } from "@/lib/env";
+import { InputType } from "@/types";
+import { inputSchema } from "@/zod-schemas";
 interface RequestBody {
-  prompt: string;
+  input: InputType;
 }
-
-type InputType = {
-  width: number;
-  height: number;
-  prompt: string;
-  refine: string;
-  apply_watermark: boolean;
-  num_inference_steps: number;
-};
 
 type CustomNextApiRequest = NextApiRequest & Request;
 
 export async function POST(request: CustomNextApiRequest) {
-  const { prompt }: RequestBody = await request.json();
+  const { input }: RequestBody = await request.json();
   const { userId, getToken } = auth();
 
   if (!userId) {
@@ -33,18 +26,19 @@ export async function POST(request: CustomNextApiRequest) {
   if (!userId || !supabaseAccessToken) {
     return Response.json({ message: "Unauthorized" }, { status: 401 });
   }
-  if (!prompt) {
-    return Response.json({ message: "Prompt is missing" }, { status: 400 });
-  }
 
-  const input: InputType = {
-    width: 768,
-    height: 768,
-    prompt: prompt,
-    refine: "expert_ensemble_refiner",
-    apply_watermark: false,
-    num_inference_steps: 25,
-  };
+  // refine: "expert_ensemble_refiner",
+  // apply_watermark: false,
+  const response = inputSchema.safeParse(input);
+  if (!response.success) {
+    const { errors } = response.error;
+    return Response.json(
+      { message: "Invalid request", errors },
+      { status: 400 }
+    );
+  }
+  const { height, num_inference_steps, prompt, width, negative_prompt } =
+    response.data;
   try {
     const userLimit = await prisma.userLimit.findUnique({
       where: { user_id: userId },
@@ -59,12 +53,13 @@ export async function POST(request: CustomNextApiRequest) {
     const supabase = createClient(supabaseAccessToken);
     const hf = new HfInference(env.HUGGINGFACE_ACCESS_TOKEN);
     const imgDesc = await hf.textToImage({
-      inputs: input.prompt,
+      inputs: prompt,
       model: "stabilityai/stable-diffusion-2",
       parameters: {
-        height: input.width,
-        width: input.width,
-        num_inference_steps: input.num_inference_steps,
+        height,
+        width: width,
+        num_inference_steps: num_inference_steps,
+        negative_prompt: negative_prompt,
       },
     });
     const { data, error } = await supabase.storage

@@ -18,13 +18,11 @@ const DashboardLayout = async ({ children }: PropsWithChildren) => {
     redirect("/sign-in");
   }
   return (
-    <div className=" min-h-screen w-full">
+    <div className="h-screen w-full">
       <Aside userLimit={userLimit!} />
-      <div className="flex flex-col md:pl-64">
+      <div className="flex h-full flex-col md:pl-64">
         <Header userLimit={userLimit!} />
-        <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
-          {children}
-        </main>
+        <main className="flex flex-1 h-full flex-col">{children}</main>
       </div>
     </div>
   );
