@@ -21,7 +21,7 @@ const GenerateImage = () => {
   const [promptSettings, setPromptSettings] = useState<TPromptSettings>({
     height: 760,
     width: 760,
-    negative_prompt: "negative_prompt",
+    negative_prompt: "",
     num_inference_steps: 50,
   });
   useEffect(() => {
