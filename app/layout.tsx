@@ -13,7 +13,7 @@ const fontSans = FontSans({
 });
 
 export const metadata: Metadata = {
-  title: "Text-to-Image Magic",
+  title: "Habesha Canvas",
   description:
     "Transform text into vibrant visual content with our online text-to-image tool! Generate eye-catching images effortlessly, perfect for social media, presentations, and more. Get started today and bring your words to life with stunning visuals!",
 };

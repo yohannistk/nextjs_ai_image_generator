@@ -36,10 +36,9 @@ const Fotter = () => {
           </div>
         </div>
         <div className="mt-28 flex flex-col md:flex-row md:justify-between items-center text-sm text-gray-400">
-          <p className="order-2 md:order-1 mt-8 md:mt-0 text-gray-700">
-            {" "}
-            &copy; Pixel Pulse, 2024.{" "}
-          </p>
+        <p className="order-2 md:order-1 mt-8 md:mt-0 text-gray-700">
+          &copy; HabeshaCanvas, {new Date().getFullYear()}.
+        </p>
           <div className="order-1 md:order-2">
             <Link href={"#"} className="px-2 text-gray-700">
               About us

@@ -63,7 +63,7 @@ export default function Header() {
           className="mr-6 font-bold text-gray-600 text-xl hidden lg:flex"
           href="#"
         >
-          Pixel<span className="text-primary">Pulse</span>
+          <span className="text-primary">Habesha</span>Canvas
         </Link>
         <NavigationMenu className="hidden lg:flex">
           <NavigationMenuList>
