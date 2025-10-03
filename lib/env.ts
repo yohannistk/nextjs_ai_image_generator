@@ -9,6 +9,7 @@ export const env = cleanEnv(process.env, {
   NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_URL: str(),
   CHAPA_KEY: str(),
   CHAPA_WEBHOOK_SECRET: str(),
+  CLERK_WEBHOOK_SECRET : str(),
   DATABASE_URL: str(),
   HUGGINGFACE_ACCESS_TOKEN: str(),
   NEXT_PUBLIC_SUPABASE_URL: str(),
