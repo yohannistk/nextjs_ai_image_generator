@@ -1,19 +1,11 @@
-import { PrismaClient } from "@prisma/client/edge";
-import { withAccelerate } from "@prisma/extension-accelerate";
+import { PrismaClient } from '../src/app/generated/prisma'
 
-if (!process.env.DATABASE_URL) {
-  throw new Error("Database url is missing");
-}
-const prismaClientSingleton = () => {
-  return new PrismaClient({}).$extends(withAccelerate());
-};
-
-declare global {
-  var prismaGlobal: undefined | ReturnType<typeof prismaClientSingleton>;
+const globalForPrisma = global as unknown as { 
+    prisma: PrismaClient
 }
 
-const prisma = globalThis.prismaGlobal ?? prismaClientSingleton();
+const prisma = globalForPrisma.prisma || new PrismaClient()
 
-export default prisma;
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
 
-if (process.env.NODE_ENV !== "production") globalThis.prismaGlobal = prisma;
+export default prisma
